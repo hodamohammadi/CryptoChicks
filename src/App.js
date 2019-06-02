@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import _ from 'lodash';
 import DiseaseTrackerContract from '../build/contracts/DiseaseTracker.json'
 import getWeb3 from './utils/getWeb3'
+import AddOrganizationCmp from './components/AddOrganizationCmp.js'
+import AddDiseaseCmp from './components/AddDiseaseCmp.js'
+import ReportDiseaseCmp from './components/ReportDiseaseCmp.js'
+import FindDiseaseCmp from './components/FindDiseaseCmp.js'
 import './css/oswald.css'
 import './css/open-sans.css'
 import './css/pure-min.css'
@@ -13,7 +17,9 @@ class App extends Component {
 
     this.state = {
       web3: {},
-      adoptionContract: null,
+      web3Provider: null,
+      tackerContract: null,
+      account: '0x0'
     }
   }
 
@@ -23,6 +29,8 @@ class App extends Component {
       this.setState({
         web3: results.web3
       }, () => {
+        this.state.web3.currentProvider.enable();
+      
         this.instantiateContract();
       });
     })
@@ -32,31 +40,22 @@ class App extends Component {
   }
 
   instantiateContract() {
-    const contract = require('truffle-contract')
+    const contract = require('truffle-contract');
     const adoption = contract(DiseaseTrackerContract);
-    adoption.setProvider(this.state.web3.currentProvider)
+    const { web3 } = this.state;
+    adoption.setProvider(this.state.web3.currentProvider);
 
     adoption.deployed().then((instance) => {
       console.log(instance);
       this.setState({
-        adoptionContract: adoption
+        trackerContract: adoption
       });
-      this.adoptPet();
-    });
-  }
-
-  adoptPet() {
-    const { adoptionContract } = this.state;
-
-    this.state.web3.eth.getAccounts((error, accounts) => {
-      adoptionContract.deployed().then((instance) => {
-        console.log(instance);
-        return instance.organizations('0');
-      }).then(function(organization) {
-        console.log(organization[1]);
-      })
-      .catch((err) => {
-        console.log(err.message);
+      return;
+    }).then(() => {
+      web3.eth.getAccounts((error, accounts) => {
+        this.setState({
+          account: accounts[0]
+        });
       })
     });
   }
@@ -71,19 +70,25 @@ class App extends Component {
               <h1 className="text-center">Disease Tracker</h1>
               <hr/><br/>
 
-              <form id="frm1" action="/action_page.php">
-              Organization Address: <input type="text" id="organizationAddress" /><br/>
-              Organization Name: <input type="text" id="organizationName" /><br/><br/>
-              <input className="btn btn-primary" type="button" value="Add Organization" />
-              </form>
+              <ReportDiseaseCmp trackerContract={this.state.trackerContract} account={this.state.account} />
 
               <hr/>
 
-              <form id="frm1" action="/action_page.php">
-                Disease ID: <input type="text" id="diseaseId"/><br/>
-                Disease Name: <input type="text" id="diseaseName"/><br/><br/>
-                <input className="btn btn-primary" type="button" value="Add Disease"/>
-              </form>
+              <FindDiseaseCmp trackerContract={this.state.trackerContract} account={this.state.account} />
+
+              <br /><br /><br />
+
+                <hr/>
+
+                <AddDiseaseCmp trackerContract={this.state.trackerContract} account={this.state.account} />
+    
+              <hr/>
+
+              <AddOrganizationCmp trackerContract={this.state.trackerContract} account={this.state.account} />
+
+              
+
+  
 
             </div>
           </div>

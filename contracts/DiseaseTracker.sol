@@ -11,6 +11,7 @@ contract DiseaseTracker {
     struct Disease {
         uint diseaseId;
         string name;
+        address lastOrg;
     }
 
     mapping(address => Organization) public organizations;
@@ -28,6 +29,13 @@ contract DiseaseTracker {
 
     function addDisease(uint _diseaseId, string memory _name) public {
         //require(msg.sender == owner);
-        diseases[_diseaseId] = Disease(_diseaseId, _name);
+        diseases[_diseaseId] = Disease(_diseaseId, _name, address(0));
     }
+
+    function reportDisease(uint _diseaseId) public {
+        //require(msg.sender == owner);
+        Disease storage disease = diseases[_diseaseId];
+        disease.lastOrg = msg.sender;
+    }
+
 }
