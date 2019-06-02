@@ -11,7 +11,7 @@ import { compose, withProps, withStateHandlers } from "recompose";
 const MapWithPlaces = compose(
   withProps({
     googleMapURL:
-      "https://maps.googleapis.com/maps/api/jsADD-API-KEY&libraries=geometry,drawing,places",
+      "https://maps.googleapis.com/maps/api/js?key= YOUR-API-KEY,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: "100vh", width: "100%" }} />,
     mapElement: <div style={{ height: "100%" }} />
@@ -35,7 +35,7 @@ const MapWithPlaces = compose(
   withGoogleMap
 )(props => (
   <GoogleMap defaultZoom={2} defaultCenter={props.center} addLong={props.long} addLat={props.lat}>
-    {props.places &&
+    {props.places && props.long != 17.060816 &&
       props.places.map((place, i) => {
         let lat = parseFloat(place.latitude, 10);
         let lng = parseFloat(place.longitude, 10);
@@ -58,7 +58,8 @@ const MapWithPlaces = compose(
       })}
 
       {
-          <Marker
+          <Marker 
+            visible={props.long != 17.060816}
             position={{ lat: props.long, lng: props.lat }}
             title="Click to zoom"
           >

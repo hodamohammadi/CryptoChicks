@@ -43,14 +43,14 @@ class AddDiseaseCmp extends React.Component {
     return (
       <form id="frm1" action="/action_page.php">
             <div className="input">
-                <span>Disease ID:</span>
+                <span>Virus ID:</span>
                 <input type="text" value={this.state.diseaseId} onChange={this.handleIdChange}/>
             </div>
             <div className="input">
-                <span>Disease Name:</span>
+                <span>Virus Name:</span>
                 <input type="text" value={this.state.diseaseName} onChange={this.handleNameChange} />
             </div>
-            <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Add Disease" />
+            <input className="btn btn-danger" onClick={this.handleSubmit} type="button" value="Add Disease" />
       </form>
       
     );

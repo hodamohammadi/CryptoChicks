@@ -1,3 +1,9 @@
 .tracker h3 {
-    margin-left: 20px;
+    margin-left: 120px;
+}
+
+.tracker {
+    width: 30%;
+    display: inline-block;
+    margin-top: 60px;
 }

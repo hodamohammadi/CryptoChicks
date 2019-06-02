@@ -5,8 +5,8 @@ class FindDiseaseCmp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      diseaseId: 0
-
+      diseaseId: 0, 
+      diseaseName: ""
     };
 
     this.handleIdChange = this.handleIdChange.bind(this);
@@ -29,9 +29,13 @@ class FindDiseaseCmp extends React.Component {
         console.log(this.state.diseaseId);
       return instance.diseases(parseInt(this.state.diseaseId, 10));
     }).then((disease) => {
-      console.log(disease);
+      console.log(disease, "disease");
+      this.setState({
+        diseaseName: disease[1]
+      })
       return trackerInstance.organizations(disease[2]);
     }).then((organization) => {
+      console.log(this.state.diseaseName);
       console.log(organization[2]);
       console.log(organization[3]);
       this.onCoorAdded(parseInt(organization[2], 10), parseInt(organization[3], 10))
@@ -49,10 +53,15 @@ class FindDiseaseCmp extends React.Component {
     return (
       <form id="frm1" action="/action_page.php">
             <div className="input">
-              <span>Disease ID:</span>
+              <span>Virus ID:</span>
               <input type="text" value={this.state.diseaseId} onChange={this.handleIdChange}/>
             </div>
-            <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Locate Disease" />
+            <div className="input">
+              <span>Virus Name:</span>
+              <input type="text" />
+            </div>
+            <p value={this.state.diseaseName}></p>
+            <input className="btn btn-danger" onClick={this.handleSubmit} type="button" value="Locate Disease" />
       </form>
       
     );

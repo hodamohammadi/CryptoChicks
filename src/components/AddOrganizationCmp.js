@@ -46,6 +46,7 @@ class AddOrganizationCmp extends React.Component {
     event.preventDefault();
     
     this.props.trackerContract.deployed().then((instance) => {
+      console.log(this.props.account + "default account")
       return instance.addOrganization(this.state.orgAddress, this.state.orgName, this.state.long, this.state.lat, {from: this.props.account});
     }).then(() => {
       console.log("org added");
@@ -72,7 +73,7 @@ class AddOrganizationCmp extends React.Component {
           <span>Latitude:</span>
           <input type="text" value={this.state.lat} onChange={this.handleLatChange} />
         </div>
-        <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Add Organization" />
+        <input className="btn btn-danger" onClick={this.handleSubmit} type="button" value="Add Organization" />
       </form>
       
     );

@@ -23,8 +23,8 @@ class App extends Component {
       web3Provider: null,
       tackerContract: null,
       account: '0x0',
-      long: 0,
-      lat: 0
+      long: 17.060816,
+      lat: 17.060816
     }
   }
 
@@ -80,13 +80,13 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <div className="app__container">
-            <h1>Disease Tracker</h1>
+            <h1>Pandemic Blockchained</h1>
+            
             <div className="navigation">
-              <Link className="btn btn-primary" to="/">Track</Link>
-              <Link className="btn btn-primary" to="/register">Register</Link>
+              <Link className="btn btn-danger" to="/">Track</Link>
+              <Link className="btn btn-danger" to="/register">Register</Link>
             </div>
-            <div className="inner-content">
-              <Switch>
+              <Switch className="switch-container">
                 <Route 
                   path="/" 
                   exact 
@@ -106,7 +106,7 @@ class App extends Component {
                   long={this.state.long}
                   lat={this.state.lat}
                 />
-              </div>
+             
             </div>
           </div>
         </BrowserRouter>

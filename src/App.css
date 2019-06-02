@@ -79,6 +79,11 @@ code {
   margin: 0 10px;
 }
 
-.inner-content {
-  display: inline;
+
+.map-container {
+  display: inline-flex;
+  width: 64%;
+  float: right;
+  margin-right: 100px;
+  margin-top: 68px;
 }

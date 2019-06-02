@@ -16,5 +16,31 @@
     "name": "East New York",
     "latitude": "40.6577799",
     "longitude": "-73.9147716"
+  },
+  {
+    "id": 4,
+    "name": "East New York",
+    "latitude": "17.060816",
+    "longitude": "17.060816"
+  },{
+    "id": 5,
+    "name": "Park Slope",
+    "latitude": "33.93911", 
+    "longitude": "67.709953"
+  },
+  {
+    "id": 6,
+    "name": "Bushwick",
+    "latitude": "23.424076", 
+    "longitude": "53.847818"
+  },
+  {
+    "id": 7,
+    "name": "East New York",
+    "latitude": "42.546245",
+    "longitude": "1.601554"
   }
 ]
+
+
+
