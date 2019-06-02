@@ -11,6 +11,8 @@ import './css/pure-min.css'
 import './App.css'
 import './css/base.css'
 import './'
+import Map from "./components/Map.js";
+import places from "./places.json";
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +22,9 @@ class App extends Component {
       web3: {},
       web3Provider: null,
       tackerContract: null,
-      account: '0x0'
+      account: '0x0',
+      long: 0,
+      lat: 0
     }
   }
 
@@ -61,6 +65,13 @@ class App extends Component {
     });
   }
 
+  onCoorAdded = (longPassed, latPassed) => {
+    this.setState({
+      long: longPassed,
+      lat: latPassed
+    })
+  }
+
   render() {
 
     const { trackerContract, account } = this.state;
@@ -74,17 +85,29 @@ class App extends Component {
               <Link className="btn btn-primary" to="/">Track</Link>
               <Link className="btn btn-primary" to="/register">Register</Link>
             </div>
-            <Switch>
-              <Route 
-                path="/" 
-                exact 
-                render={props => <Tracker trackerContract={trackerContract} account={account}/>}
-              />
-              <Route 
-                path="/register/" 
-                render={props => <Registration trackerContract={this.state.trackerContract} account={this.state.account} />}
-              />
-            </Switch>
+            <div className="inner-content">
+              <Switch>
+                <Route 
+                  path="/" 
+                  exact 
+                  render={props => <Tracker trackerContract={trackerContract} account={account } onCoorAdded={this.onCoorAdded} />}
+                />
+                <Route 
+                  path="/register/" 
+                  render={props => <Registration trackerContract={this.state.trackerContract} account={this.state.account} />}
+                />
+              </Switch>
+
+              <div className="map-container">
+                <Map
+                  center={{ lat: 40.6451594, lng: -74.0850826 }}
+                  zoom={10}
+                  places={places}
+                  long={this.state.long}
+                  lat={this.state.lat}
+                />
+              </div>
+            </div>
           </div>
         </BrowserRouter>
       </div>

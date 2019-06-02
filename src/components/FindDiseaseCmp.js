@@ -6,6 +6,7 @@ class FindDiseaseCmp extends React.Component {
     super(props);
     this.state = {
       diseaseId: 0
+
     };
 
     this.handleIdChange = this.handleIdChange.bind(this);
@@ -24,17 +25,24 @@ class FindDiseaseCmp extends React.Component {
     var trackerInstance;
     this.props.trackerContract.deployed().then((instance) => {
         trackerInstance = instance;
+        console.log(trackerInstance);
+        console.log(this.state.diseaseId);
       return instance.diseases(parseInt(this.state.diseaseId, 10));
     }).then((disease) => {
-        // for(var i = 0; i < disease[2].length(); i++) {
-        //     trackerInstance.organizations((disease[2])[i]).then((org) => {
-        //         console.log("long " + org[2] + " lat " + org[3]);
-        //     })
-        // }
+      console.log(disease);
+      return trackerInstance.organizations(disease[2]);
+    }).then((organization) => {
+      console.log(organization[2]);
+      console.log(organization[3]);
+      this.onCoorAdded(parseInt(organization[2], 10), parseInt(organization[3], 10))
     })
     .catch((err) => {
       console.log(err);
     })
+  }
+
+  onCoorAdded(long, lat) {
+    this.props.onCoorAdded(long, lat)
   }
 
   render() {

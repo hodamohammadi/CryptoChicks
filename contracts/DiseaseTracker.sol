@@ -11,13 +11,15 @@ contract DiseaseTracker {
     struct Disease {
         uint diseaseId;
         string name;
-        address[] addresses;
+        address coorOne;
     }
 
+    address owner;
     mapping(address => Organization) public organizations;
     mapping(uint => Disease) public diseases;
 
     constructor() public {
+        owner = msg.sender;
         addOrganization(address(0), "test organization", "43.6452", "-79.3806");
         addDisease(123, "test disease");
     }
@@ -29,15 +31,14 @@ contract DiseaseTracker {
 
     function addDisease(uint _diseaseId, string memory _name) public {
         //require(msg.sender == owner);
-    
-        address[] memory addressList;
-        diseases[_diseaseId] = Disease(_diseaseId, _name, addressList);
+        diseases[_diseaseId] = Disease(_diseaseId, _name, address(0));
     }
 
     function reportDisease(uint _diseaseId) public {
         //require(msg.sender == owner);
-        Disease storage disease = diseases[_diseaseId];
-        disease.addresses.push(msg.sender);
+        Disease storage dis = diseases[_diseaseId];
+        dis.coorOne = msg.sender;
+
     }
 
 }

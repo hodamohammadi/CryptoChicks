@@ -7,7 +7,7 @@ import '../css/tracker.css'
 
 const Tracker = (props) => {
 
-    const { trackerContract, account } = props;
+    const { trackerContract, account, onCoorAdded } = props;
 
     return (
         <div className="tracker">
@@ -17,7 +17,7 @@ const Tracker = (props) => {
                     <ReportDiseaseCmp trackerContract={trackerContract} account={account} />
                 </div>
                 <div className="paper">
-                    <FindDiseaseCmp trackerContract={trackerContract} account={account} />
+                    <FindDiseaseCmp trackerContract={trackerContract} account={account} onCoorAdded={onCoorAdded} />
                 </div>
             </div>
         </div>
