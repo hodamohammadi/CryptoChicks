@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 import _ from 'lodash';
 import DiseaseTrackerContract from '../build/contracts/DiseaseTracker.json'
 import getWeb3 from './utils/getWeb3'
-import AddOrganizationCmp from './components/AddOrganizationCmp.js'
-import AddDiseaseCmp from './components/AddDiseaseCmp.js'
-import ReportDiseaseCmp from './components/ReportDiseaseCmp.js'
-import FindDiseaseCmp from './components/FindDiseaseCmp.js'
+import Registration from './components/Registration.js'
+import Tracker from './components/Tracker.js'
 import './css/oswald.css'
 import './css/open-sans.css'
 import './css/pure-min.css'
 import './App.css'
+import './css/base.css'
+import './'
 
 class App extends Component {
   constructor(props) {
@@ -62,38 +63,30 @@ class App extends Component {
 
   render() {
 
+    const { trackerContract, account } = this.state;
+
     return (
       <div className="App">
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-12 col-sm-8 col-sm-push-2">
-              <h1 className="text-center">Disease Tracker</h1>
-              <hr/><br/>
-
-              <ReportDiseaseCmp trackerContract={this.state.trackerContract} account={this.state.account} />
-
-              <hr/>
-
-              <FindDiseaseCmp trackerContract={this.state.trackerContract} account={this.state.account} />
-
-              <br /><br /><br />
-
-                <hr/>
-
-                <AddDiseaseCmp trackerContract={this.state.trackerContract} account={this.state.account} />
-    
-              <hr/>
-
-              <AddOrganizationCmp trackerContract={this.state.trackerContract} account={this.state.account} />
-
-              
-
-  
-
+        <BrowserRouter>
+          <div className="app__container">
+            <h1>Disease Tracker</h1>
+            <div className="navigation">
+              <Link className="btn btn-primary" to="/">Track</Link>
+              <Link className="btn btn-primary" to="/register">Register</Link>
             </div>
+            <Switch>
+              <Route 
+                path="/" 
+                exact 
+                render={props => <Tracker trackerContract={trackerContract} account={account}/>}
+              />
+              <Route 
+                path="/register/" 
+                render={props => <Registration trackerContract={this.state.trackerContract} account={this.state.account} />}
+              />
+            </Switch>
           </div>
-        
-        </div>
+        </BrowserRouter>
       </div>
     );
   }

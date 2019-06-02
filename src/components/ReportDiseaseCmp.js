@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/base.css'
 
 class ReportDiseaseCmp extends React.Component {
   constructor(props) {
@@ -33,8 +34,11 @@ class ReportDiseaseCmp extends React.Component {
   render() {
     return (
       <form id="frm1" action="/action_page.php">
-              Disease ID: <input type="text" value={this.state.diseaseId} onChange={this.handleIdChange}/><br/>
-              <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Report Disease" />
+            <div className="input">
+                <span>Disease ID:</span>
+                <input type="text" value={this.state.diseaseId} onChange={this.handleIdChange}/>
+            </div>
+            <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Report Disease" />
       </form>
       
     );

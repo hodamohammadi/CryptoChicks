@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/base.css'
 
 class AddOrganizationCmp extends React.Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class AddOrganizationCmp extends React.Component {
     
     this.props.trackerContract.deployed().then((instance) => {
       return instance.addOrganization(this.state.orgAddress, this.state.orgName, this.state.long, this.state.lat, {from: this.props.account});
-    }).then((organization) => {
+    }).then(() => {
       console.log("org added");
     })
     .catch((err) => {
@@ -57,11 +58,21 @@ class AddOrganizationCmp extends React.Component {
   render() {
     return (
       <form id="frm1" action="/action_page.php">
-              Organization Address: <input type="text" value={this.state.orgAddress} onChange={this.handleAddressChange}/><br/>
-              Organization Name: <input type="text" value={this.state.orgName} onChange={this.handleNameChange} /><br/>
-              Coordinate Longitude: <input type="text" value={this.state.long} onChange={this.handleLongChange} /><br/>
-              Coordinate Latitude: <input type="text" value={this.state.lat} onChange={this.handleLatChange} /><br/><br/>
-              <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Add Organization" />
+       <div className="input">
+          <span>Hospital Address:</span> <input type="text" value={this.state.orgAddress} onChange={this.handleAddressChange}/>
+        </div>
+        <div className="input">
+          <span>Hospital Name:</span> <input type="text" value={this.state.orgName} onChange={this.handleNameChange} />
+        </div>
+        <div className="input">
+          <span>Longitude:</span>
+          <input type="text" value={this.state.long} onChange={this.handleLongChange} />
+        </div>
+        <div className="input">
+          <span>Latitude:</span>
+          <input type="text" value={this.state.lat} onChange={this.handleLatChange} />
+        </div>
+        <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Add Organization" />
       </form>
       
     );

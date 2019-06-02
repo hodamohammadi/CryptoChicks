@@ -66,3 +66,15 @@ code {
   height: 16px;
   margin-right: 10px;
 }
+
+.App h1 {
+  text-align: center;
+}
+
+.App .navigation {
+  text-align: center;
+}
+
+.App .navigation .btn {
+  margin: 0 10px;
+}

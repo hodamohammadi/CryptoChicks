@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/base.css'
 
 class FindDiseaseCmp extends React.Component {
   constructor(props) {
@@ -20,11 +21,16 @@ class FindDiseaseCmp extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     
+    var trackerInstance;
     this.props.trackerContract.deployed().then((instance) => {
+        trackerInstance = instance;
       return instance.diseases(parseInt(this.state.diseaseId, 10));
     }).then((disease) => {
-      console.log("disease found");
-      console.log(disease[2]);
+        // for(var i = 0; i < disease[2].length(); i++) {
+        //     trackerInstance.organizations((disease[2])[i]).then((org) => {
+        //         console.log("long " + org[2] + " lat " + org[3]);
+        //     })
+        // }
     })
     .catch((err) => {
       console.log(err);
@@ -34,8 +40,11 @@ class FindDiseaseCmp extends React.Component {
   render() {
     return (
       <form id="frm1" action="/action_page.php">
-              Disease ID: <input type="text" value={this.state.diseaseId} onChange={this.handleIdChange}/><br/><br/>
-              <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Find Disease" />
+            <div className="input">
+              <span>Disease ID:</span>
+              <input type="text" value={this.state.diseaseId} onChange={this.handleIdChange}/>
+            </div>
+            <input className="btn btn-primary" onClick={this.handleSubmit} type="button" value="Locate Disease" />
       </form>
       
     );
